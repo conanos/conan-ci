@@ -36,7 +36,7 @@ In terms of graph theory, any library in sdk can be represented by a vertice in 
 
 A conclusion can be drawn that any requirements topological graph can be splited into several subgraphs as shown in this DAG. Each subgraph has exactly one vertice that only has incoming edges. That kind of vertice may be called root vertice for convience. So the example DAG is consisted of three subgraphs, and the root vertices are A, C and D.
 
-![DAG-Subgraphs](.\DAG-Subgraphs.jpg)
+![DAG-Subgraphs](https://github.com/conanos/conan-ci/blob/master/DAG-Subgraphs.jpg)
 
 Why should spliting requirements topological graph in this way be analyzed so detailedly? That's because that these subgraphs each with exactly one root vertice are the basis of CI. The intuitive steps when 
 building software sdk by the way of CI are summarized as follows:
@@ -50,17 +50,17 @@ Before the algorithm be elaborated, some definitions are given as follows:
 3. Dmax(X,Y) represents the maximum distance between vertice X and Y if there are many directed paths present from X to Y.
 4. T(G) represents the adjacent table of DAG G. For example, the adjacent table of DAG above is shown in figure below. Each element of T(G) is a vertice set, each of which is a adjacent vertice of some vertice in DAG.
 
-![DAG-AdjacentTable](.\DAG-AdjacentTable.jpg)
+![DAG-AdjacentTable](https://github.com/conanos/conan-ci/blob/master/DAG-AdjacentTable.jpg)
 
 5. M(G) represents the adjacent matrix of DAG G. For example, the adjacent matrix of DAG above is shown in figure below. Each element of M(G) denotes that the row vertice connects to the column vertice if the value equals to 1.
 
-![DAG-AdjacentMatrix](.\DAG-AdjacentMatrix.jpg)
+![DAG-AdjacentMatrix](https://github.com/conanos/conan-ci/blob/master/DAG-AdjacentMatrix.jpg)
 
 CI of building the software sdk is consists of three kinds of job. Job one is to build the software sdk from scratch. Job two is to build the libraries that form a DAG subgraph, which is triggered by the version change of the root vertix library. Job three is to add new libraries to existing sdk or develop sdk one library after another. For job one, the adjacent matrix of DAG can be used to calculate the building sequence of all libraries. For job two, the adjacent table can be used to calculate the building sequence of DAG subgraph.For job three, just build the target library one by one. Following are the two algorithms for job one and two. 
 
-![Job-one](.\Job-one.jpg)
+![Job-one](https://github.com/conanos/conan-ci/blob/master/Job-one.jpg)
 
-![Job-two](.\Job-two.jpg)
+![Job-two](https://github.com/conanos/conan-ci/blob/master/Job-two.jpg)
 
 # Construction of Requirements Topological Graph With Conan
 According to [the documentation of conan](conan), the requirements topological graph of a software library has been contained in the corresponding conan recipe.
@@ -72,10 +72,10 @@ Conan has provided such a command as "conan info" to extract graph of dependenci
 2. Change the current working directory to where conan recipe of library "gstreamer" is
 3. Run command "conan info . --graph=file.dot" and "type .\file.dot"
 
-![Graph-of-dependencies-gstreamer](.\Graph-of-dependencies-gstreamer.jpg)
+![Graph-of-dependencies-gstreamer](https://github.com/conanos/conan-ci/blob/master/Graph-of-dependencies-gstreamer.jpg)
 
 According to the file, requirements topological graph of library "gstreamer" is as following DAG.
-![DAG-gstreamer](.\DAG-gstreamer.jpg)
+![DAG-gstreamer](https://github.com/conanos/conan-ci/blob/master/DAG-gstreamer.jpg)
 
 Until now, construction of requirements topological graph for any software sdk with conan tools can be easily implemented. For each library contained in sdk, a graph of dependencies can be gathered by executing the command "conan info . --graph=XXX.dot". With these graphs of dependencies, adjacent matrix of sdk can be constructed, based on which then CI of software sdk development can be realized.
 
