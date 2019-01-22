@@ -75,6 +75,7 @@ Conan has provided such a command as "conan info" to extract graph of dependenci
 ![Graph-of-dependencies-gstreamer](https://github.com/conanos/conan-ci/blob/master/Graph-of-dependencies-gstreamer.jpg)
 
 According to the file, requirements topological graph of library "gstreamer" is as following DAG.
+
 ![DAG-gstreamer](https://github.com/conanos/conan-ci/blob/master/DAG-gstreamer.jpg)
 
 Until now, construction of requirements topological graph for any software sdk with conan tools can be easily implemented. For each library contained in sdk, a graph of dependencies can be gathered by executing the command "conan info . --graph=XXX.dot". With these graphs of dependencies, adjacent matrix of sdk can be constructed, based on which then CI of software sdk development can be realized.
