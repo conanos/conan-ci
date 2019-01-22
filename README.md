@@ -30,7 +30,7 @@ The version shifting scenarios are analyzed detailedly as above. Next, several v
 # Requirements Topological Graph
 Requirements topological graph shows the dependency relationship among the libraries that form a software sdk. Obviously, all the libraries in a software sdk and the dependency relationships among them form a directed acyclic graphic (DAG). Next graph is a typical requirements topological graph.
 
-![DAG](.\DAG.jpg)
+![DAG](https://github.com/conanos/conan-ci/blob/master/DAG.jpg)
 
 In terms of graph theory, any library in sdk can be represented by a vertice in DAG, and the dependency relationship between two libraries can be represented by a directed edge. So there are nine vertices in this DAG as A-I and directed edges(B->A, E->C, E->D, F->D, G->B, G->E, H->D, H->F, I->C, I->D, I->F, I->H).
 
