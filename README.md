@@ -81,6 +81,12 @@ Until now, construction of requirements topological graph for any software sdk w
 
 # CI based on Requirements Topological Graph
 
+The typical process to develop any software sdk using modern CI tools such as Jenkins, GitLab(Github), Docker, Conan and JFrog-Artifactory can be summarized as follows:
+1. Create conan recipe for each library that belongs to the target software sdk. Upload each recipe separately to version control system such as GitLab or Github
+2. Create sdk profile file(YAML, .yml) that depicts sdk properties such as the name of sdk, libraries sdk includes, libraries' version and url, etc. 
+3. 
+
+
 [semver]: https://semver.org/spec/v2.0.0.html
 [release]: https://en.wikipedia.org/wiki/Software_release_life_cycle
 [conan]: https://docs.conan.io/en/latest/
