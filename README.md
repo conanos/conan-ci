@@ -82,6 +82,20 @@ Until now, construction of requirements topological graph for any software sdk w
 
 # CI based on Requirements Topological Graph
 
+According to the analysis from the section **Requirements Topological Graph** above, there are typically three jobs to do for developing any software sdk using modern CI tools such as Jenkins, GitLab(Github), Docker, Conan and JFrog-Artifactory. From the perspective of the sdk development process, the first job is to compile conan recipe for each library that should be added to sdk and build them one after another. The detailed steps for this job can be listed here as follows:
+1. Create conan recipe for library that would be added to sdk.
+2. Upload conan recipe to version control system such as GitLab or GitHub
+3. Recipe-uploading triggers Jenkins to execute job typically like startuping Docker Container or Vagrant Box to build that library and then uploading the conan package to JFrog-Artifactory repository.
+4. Continue the above steps for other libraries that would be added to sdk one after another
+
+After the job above finished, a so-called base sdk has been created. Based on this base sdk, there are three kinds of job that can be continued parallelly. The first is to create sub-sdk from the base sdk. The second is sdk-subgraph version shifting. The third is to add new library to base sdk from time to time.
+
+To create sub-sdk from the base sdk, the detailed steps can be listed here as follows:
+
+To do sdk-subgraph version shifting, the detailed steps can be listed here as follows:
+
+To add new library to base sdk, the detailed steps can be listed here as follows:
+
 The typical process to develop any software sdk using modern CI tools such as Jenkins, GitLab(Github), Docker, Conan and JFrog-Artifactory can be summarized as follows:
 1. Create conan recipe for each library that belongs to the target software sdk. Upload each recipe separately to version control system such as GitLab or Github
 2. Create sdk profile file(YAML, .yml) that depicts sdk properties such as the name of sdk, libraries sdk includes, libraries' version and url, etc. 
