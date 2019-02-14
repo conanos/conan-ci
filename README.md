@@ -101,9 +101,9 @@ To do sdk-subgraph version shifting, the detailed steps can be listed here as fo
 3. Switch library's building triggers Jenkins to execute job typically like startuping Docker Container(or Vagrant Box) to build libraries that belong to *sdk-up-subgraph* in order of dependency relationship, shift version of them, and release them to version control system such as GitLab or GitHub
 
 To add new library to base sdk, the detailed steps can be listed here as follows:
-1. Create conan recipe for the new library that would be added into base sdk.
+1. Create conan recipe for the new library that would be added into base sdk
 2. Upload conan recipe to version control system such as GitLab or GitHub
-3. Recipe-uploading triggers Jenkins to execute job typically like startuping Docker Container(or Vagrant Box) to build the new added library and then uploading the conan package to JFrog-Artifactory repository
+3. Recipe-uploading triggers Jenkins to execute job typically like startuping Docker Container(or Vagrant Box) to build libraries that new library depends on, and then to build the new library before uploading the result package to JFrog-Artifactory repository
 
 [semver]: https://semver.org/spec/v2.0.0.html
 [release]: https://en.wikipedia.org/wiki/Software_release_life_cycle
