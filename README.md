@@ -83,24 +83,27 @@ Until now, construction of requirements topological graph for any software sdk w
 # CI based on Requirements Topological Graph
 
 According to the analysis from the section **Requirements Topological Graph** above, there are typically three jobs to do for developing any software sdk using modern CI tools such as Jenkins, GitLab(Github), Docker, Conan and JFrog-Artifactory. From the perspective of the sdk development process, the first job is to compile conan recipe for each library that should be added to sdk and build them one after another. The detailed steps for this job can be listed here as follows:
-1. Create conan recipe for library that would be added to sdk.
+1. Create conan recipe for library that would be added into sdk.
 2. Upload conan recipe to version control system such as GitLab or GitHub
-3. Recipe-uploading triggers Jenkins to execute job typically like startuping Docker Container or Vagrant Box to build that library and then uploading the conan package to JFrog-Artifactory repository.
+3. Recipe-uploading triggers Jenkins to execute job typically like startuping Docker Container(or Vagrant Box) to build that library and then uploading the conan package to JFrog-Artifactory repository.
 4. Continue the above steps for other libraries that would be added to sdk one after another
 
 After the job above finished, a so-called base sdk has been created. Based on this base sdk, there are three kinds of job that can be continued parallelly. The first is to create sub-sdk from the base sdk. The second is sdk-subgraph version shifting. The third is to add new library to base sdk from time to time.
 
 To create sub-sdk from the base sdk, the detailed steps can be listed here as follows:
+1. Create sub-sdk profile file (YAML, .yml) which defines the core properties of sub-sdk such as name, libraries included, library version and recipe url.
+2. Upload sub-sdk profile file to version control system such as GitLab or GitHub
+3. Profile-uploading triggers Jenkins to execute job typically like startuping Docker Container(or Vagrant Box) to create sub-sdk by means of building libraries included in order of dependency relationship, packaging and then uploading sub-sdk to JFrog-Artifactory repository
 
 To do sdk-subgraph version shifting, the detailed steps can be listed here as follows:
+1. The library that has made changes which triggers the job of sdk-subgraph version shifting would be called *switch library*.*Sdk-down-subgraph* consists of switch library and libraries that switch library depends on. *Sdk-up-subgraph* consists of switch library and libraries that depends on switch library.
+2. Switch library's changes triggers Jenkins to execute job typically like startuping Docker Container(or Vagrant Box) to build libraries or download binaries that belong to *sdk-down-subgraph*, and then building switch library and uploading the result package to JFrog-Artifactory repository
+3. Switch library's building triggers Jenkins to execute job typically like startuping Docker Container(or Vagrant Box) to build libraries that belong to *sdk-up-subgraph* in order of dependency relationship, shift version of them, and release them to version control system such as GitLab or GitHub
 
 To add new library to base sdk, the detailed steps can be listed here as follows:
-
-The typical process to develop any software sdk using modern CI tools such as Jenkins, GitLab(Github), Docker, Conan and JFrog-Artifactory can be summarized as follows:
-1. Create conan recipe for each library that belongs to the target software sdk. Upload each recipe separately to version control system such as GitLab or Github
-2. Create sdk profile file(YAML, .yml) that depicts sdk properties such as the name of sdk, libraries sdk includes, libraries' version and url, etc. 
-3. 
-
+1. Create conan recipe for the new library that would be added into base sdk.
+2. Upload conan recipe to version control system such as GitLab or GitHub
+3. Recipe-uploading triggers Jenkins to execute job typically like startuping Docker Container(or Vagrant Box) to build the new added library and then uploading the conan package to JFrog-Artifactory repository
 
 [semver]: https://semver.org/spec/v2.0.0.html
 [release]: https://en.wikipedia.org/wiki/Software_release_life_cycle
